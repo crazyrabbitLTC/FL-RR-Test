@@ -1,10 +1,12 @@
+import axios from "axios";
+
 import {
   FETCH_ACTION,
   GET_TRANSACTIONS,
   SET_TRANSACTIONS,
   GET_BLOCKS,
   SET_BLOCKS,
-  API_ERROR,
+  API_ERROR
 } from "./types";
 
 const isFetching = bool => {
@@ -43,11 +45,11 @@ const getBlocks = bool => {
 };
 
 const setApiError = bool => {
-    return {
-        type: API_ERROR,
-        bool
-    }
-}
+  return {
+    type: API_ERROR,
+    bool
+  };
+};
 
 //-------- THUNKS
 
@@ -68,16 +70,27 @@ const setApiError = bool => {
 //   };
 // };
 
+const apiRequestObject = {
+    base: "http://api.etherscan.io/api?",
+    address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
+    
+}
+
 const getTransactions_THUNK = address => {
   return async dispatch => {
-      dispatch(isFetching(true));
-      try {
-          
-      } catch (error) {
-          dispatch(isFetching(false));
-          dispatch(setApiError(true));
-          console.error(error);
-      }
+    dispatch(isFetching(true));
+    try {
+      const transactions = await axios.get(
+        `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken`
+      );
+
+      //
+      dispatch(isFetching(false));
+    } catch (error) {
+      dispatch(isFetching(false));
+      dispatch(setApiError(true));
+      console.error(error);
+    }
   };
 };
 
