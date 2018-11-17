@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router , Route, Link} from "react-router-dom";
 import { connect } from 'react-redux';
-import Child from "./components/BrowserBar";
+import Address from "./components/Address";
+import Block from "./components/Block";
 
 import "./App.css";
 
@@ -11,7 +12,9 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="app">
+        <Route path="/address/:id" component={Address} />
+        <Route path="/block/:id" component={Block} />
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -26,8 +29,7 @@ class App extends Component {
 
         <hr />
 
-      <Route path="/address/:id" component={Child} />
-      <Route path="/block/:id" component={Child} />
+
 
         {/* <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />

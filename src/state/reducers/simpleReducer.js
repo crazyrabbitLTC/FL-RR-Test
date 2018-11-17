@@ -3,12 +3,41 @@
 */
 import types from '../actions/types';
 
-export default (state = {}, action) => {
+const defaultState = {
+  isFetching: false,
+  transactions: [],
+  blocks: [],
+  apiError: false,
+}
+
+export default (state = defaultState, action) => {
     switch (action.type) {
      case types.SIMPLE_ACTION:
       return {
+        ...state,
        result: action.payload
       }
+      case types.FETCH_ACTION:
+      return {
+        ...state,
+        isFetching: action.bool
+      }
+      case types.SET_TRANSACTIONS:
+      return {
+        ...state,
+        transactions: action.transactions
+      }
+      case types.SET_BLOCKS:
+      return {
+        ...state,
+        blocks: action.blocks
+      }
+      case types.API_ERROR:
+      return {
+        ...state, 
+        apiError: action.bool
+      }
+
      default:
       return state
     }

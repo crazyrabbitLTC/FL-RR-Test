@@ -1,6 +1,6 @@
 import React from "react";
 
-function Child({ match }) {
+function Address({ match }) {
     return (
       <div>
         <h3>ID: {match.params.id}</h3>
@@ -8,4 +8,5 @@ function Child({ match }) {
     );
   }
 
-  export default Child;
+  export default Address
+;

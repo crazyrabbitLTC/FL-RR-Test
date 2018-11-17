@@ -1,10 +1,91 @@
-import { SIMPLE_ACTION } from "./types";
+import {
+  FETCH_ACTION,
+  GET_TRANSACTIONS,
+  SET_TRANSACTIONS,
+  GET_BLOCKS,
+  SET_BLOCKS,
+  API_ERROR,
+} from "./types";
 
-export const simpleAction = () => dispatch => {
-  dispatch({
-    type: SIMPLE_ACTION,
-    payload: "result_of_simple_action"
-  });
+const isFetching = bool => {
+  return {
+    type: FETCH_ACTION,
+    bool
+  };
 };
 
-export default { simpleAction };
+const setTransactions = transactions => {
+  return {
+    type: SET_TRANSACTIONS,
+    transactions
+  };
+};
+
+const setBlocks = blocks => {
+  return {
+    type: SET_BLOCKS,
+    blocks
+  };
+};
+
+const getTransactions = bool => {
+  return {
+    type: GET_TRANSACTIONS,
+    bool
+  };
+};
+
+const getBlocks = bool => {
+  return {
+    type: GET_BLOCKS,
+    bool
+  };
+};
+
+const setApiError = bool => {
+    return {
+        type: API_ERROR,
+        bool
+    }
+}
+
+//-------- THUNKS
+
+// export const tokenAddMinter_THUNK = minterAddress => {
+//   return async dispatch => {
+//     dispatch(setTokenFetching(true));
+//     try {
+//       const coinbase = await web3.eth.getCoinbase();
+//       const tokenInstance = await token.deployed();
+//       tokenInstance.addMinter(minterAddress).call({ from: coinbase });
+
+//     } catch (error) {
+//       dispatch(setTokenFetching(false));
+//       dispatch(setTxError(true));
+//       console.log(error);
+//     }
+//     dispatch(setTokenFetching(false));
+//   };
+// };
+
+const getTransactions_THUNK = address => {
+  return async dispatch => {
+      dispatch(isFetching(true));
+      try {
+          
+      } catch (error) {
+          dispatch(isFetching(false));
+          dispatch(setApiError(true));
+          console.error(error);
+      }
+  };
+};
+
+export default {
+  isFetching,
+  setTransactions,
+  setBlocks,
+  getTransactions,
+  getBlocks,
+  getTransactions_THUNK
+};
