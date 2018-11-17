@@ -5,7 +5,8 @@ import {
   SET_TRANSACTIONS,
   GET_BLOCKS,
   SET_BLOCKS,
-  API_ERROR
+  API_ERROR,
+  SET_API_ERROR_MSG
 } from "./types";
 
 //Actions
@@ -18,5 +19,6 @@ export {
   GET_BLOCKS,
   SET_BLOCKS,
   isFetching,
-  API_ERROR
+  API_ERROR,
+  SET_API_ERROR_MSG
 };

@@ -8,6 +8,7 @@ const defaultState = {
   transactions: [],
   blocks: [],
   apiError: false,
+  apiErrorMSG: "",
 }
 
 export default (state = defaultState, action) => {
@@ -37,6 +38,12 @@ export default (state = defaultState, action) => {
         ...state, 
         apiError: action.bool
       }
+      case types.SET_API_ERROR_MSG:
+      return {
+        ...state,
+        apiErrorMSG: action.MSG
+      }
+
 
      default:
       return state

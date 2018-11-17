@@ -6,7 +6,8 @@ import {
   SET_TRANSACTIONS,
   GET_BLOCKS,
   SET_BLOCKS,
-  API_ERROR
+  API_ERROR,
+  SET_API_ERROR_MSG
 } from "./types";
 import { truncateSync } from "fs";
 
@@ -52,6 +53,12 @@ export const setApiError = bool => {
   };
 };
 
+export const setApiErrorMsg = MSG => {
+    return {
+        type: SET_API_ERROR_MSG,
+        MSG
+    }
+}
 //-------- THUNKS
 
 // export const tokenAddMinter_THUNK = minterAddress => {
@@ -89,8 +96,9 @@ export const getTransactions_THUNK = address => {
             dispatch(setTransactions(transactions.data.result));
             dispatch(isFetching(false));
         } else {
-            console.log("There was API Error");
+            console.log("There was API Error", transactions.data.message);
             dispatch(setApiError(true));
+            dispatch(setApiErrorMsg(transactions.data.message));
             dispatch(isFetching(false));
         }
     } catch (error) {

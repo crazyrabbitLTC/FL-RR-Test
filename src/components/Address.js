@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { getTransactions_THUNK } from "../state/actions/actions";
 import SingleAddressTX from "./SingleAddressTx";
+import { stat } from "fs";
 
 class Address extends Component {
   constructor(props) {
@@ -43,7 +44,8 @@ const mapStateToProps = state => ({
   isFetching: state.simpleReducer.isFetching,
   transactions: state.simpleReducer.transactions,
   blocks: state.simpleReducer.blocks,
-  apiError: state.simpleReducer.apiError
+  apiError: state.simpleReducer.apiError,
+  apiErrorMSG: stat.simpleReducer.apiErrorMSG,
 });
 
 const mapDispatchToProps = dispatch => ({
