@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import apiKey from "../../secrets";
 import {
   FETCH_ACTION,
   GET_TRANSACTIONS,
@@ -9,42 +9,42 @@ import {
   API_ERROR
 } from "./types";
 
-const isFetching = bool => {
+export const isFetching = bool => {
   return {
     type: FETCH_ACTION,
     bool
   };
 };
 
-const setTransactions = transactions => {
+export const setTransactions = transactions => {
   return {
     type: SET_TRANSACTIONS,
     transactions
   };
 };
 
-const setBlocks = blocks => {
+export const setBlocks = blocks => {
   return {
     type: SET_BLOCKS,
     blocks
   };
 };
 
-const getTransactions = bool => {
+export const getTransactions = bool => {
   return {
     type: GET_TRANSACTIONS,
     bool
   };
 };
 
-const getBlocks = bool => {
+export const getBlocks = bool => {
   return {
     type: GET_BLOCKS,
     bool
   };
 };
 
-const setApiError = bool => {
+export const setApiError = bool => {
   return {
     type: API_ERROR,
     bool
@@ -70,21 +70,21 @@ const setApiError = bool => {
 //   };
 // };
 
-const apiRequestObject = {
-    base: "http://api.etherscan.io/api?",
-    address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
+// export const apiRequestObject = {
+//     base: "http://api.etherscan.io/api?",
+//     address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
     
-}
+// }
 
-const getTransactions_THUNK = address => {
+export const getTransactions_THUNK = address => {
   return async dispatch => {
     dispatch(isFetching(true));
     try {
       const transactions = await axios.get(
-        `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken`
+        `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
       );
-
-      //
+        console.log("The transactions are: ", transactions.data.result);
+      dispatch(setTransactions(transactions.data.result));
       dispatch(isFetching(false));
     } catch (error) {
       dispatch(isFetching(false));
