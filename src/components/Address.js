@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getTransactions_THUNK } from "../state/actions/actions";
+import SingleAddressTX from "./SingleAddressTx";
 
 class Address extends Component {
   constructor(props) {
@@ -16,19 +17,33 @@ class Address extends Component {
 
   componentDidMount() {
     this.props.getTransactions(this.props.match.params.id);
+    console.log("STate", this.props.transactions);
   }
   render() {
+    console.log(
+      "In render:",
+      this.props.transactions.slice(this.state.from, this.state.to)
+    );
+
     return (
       <div>
-        {" "}
-        <h3>Block: {this.props.match.params.id}</h3>
+        {this.props.transactions
+          .slice(this.state.from, this.state.to)
+          .map(tx => (
+            <SingleAddressTX key={tx.hash} to={tx.to} value={tx.value} />
+          ))}
+        <h3>Address: {this.props.match.params.id}</h3>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  ...state
+  state: state,
+  isFetching: state.simpleReducer.isFetching,
+  transactions: state.simpleReducer.transactions,
+  blocks: state.simpleReducer.blocks,
+  apiError: state.simpleReducer.apiError
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -8,6 +8,7 @@ import {
   SET_BLOCKS,
   API_ERROR
 } from "./types";
+import { truncateSync } from "fs";
 
 export const isFetching = bool => {
   return {
@@ -84,8 +85,14 @@ export const getTransactions_THUNK = address => {
         `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
       );
         console.log("The transactions are: ", transactions.data.result);
-      dispatch(setTransactions(transactions.data.result));
-      dispatch(isFetching(false));
+        if(transactions.data.message === "OK"){
+            dispatch(setTransactions(transactions.data.result));
+            dispatch(isFetching(false));
+        } else {
+            console.log("There was API Error");
+            dispatch(setApiError(true));
+            dispatch(isFetching(false));
+        }
     } catch (error) {
       dispatch(isFetching(false));
       dispatch(setApiError(true));
@@ -94,11 +101,37 @@ export const getTransactions_THUNK = address => {
   };
 };
 
+export const getBlocks_THUNK = address => {
+    return async dispatch => {
+      dispatch(isFetching(true));
+      try {
+        const transactions = await axios.get(
+          `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
+        );
+          console.log("The transactions are: ", transactions.data.result);
+        if(transactions.data.message === "OK"){
+            dispatch(setTransactions(transactions.data.result));
+            dispatch(isFetching(false));
+        } else {
+            console.log("There was API Error");
+            dispatch(setApiError(true));
+            dispatch(isFetching(false));
+        }
+        
+      } catch (error) {
+        dispatch(isFetching(false));
+        dispatch(setApiError(true));
+        console.error(error);
+      }
+    };
+  };
+
 export default {
   isFetching,
   setTransactions,
   setBlocks,
   getTransactions,
   getBlocks,
-  getTransactions_THUNK
+  getTransactions_THUNK,
+  getBlocks_THUNK,
 };
