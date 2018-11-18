@@ -44,7 +44,7 @@ class Block extends Component {
           timeStamp={timeStamp}
           blockMiner={blockMiner}
           blockReward={blockReward}
-          blockNumber={parseFloat(web3.utils.fromWei(blockNumber))}
+          blockNumber={blockNumber}
         />
       </div>
     );

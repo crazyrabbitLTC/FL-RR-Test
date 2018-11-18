@@ -1,12 +1,16 @@
 import React from "react";
 import {Link } from "react-router-dom";
 
+import web3 from "web3"
+
 function SingleBlock({
   blockNumber,
   timeStamp,
   blockMiner,
-  blockReward,
+  blockReward = "0",
 }) {
+
+  console.log("blockreaward: ", typeof(blockReward))
   return (
     <div className="SingleBlock">
     <br/>
@@ -15,7 +19,7 @@ function SingleBlock({
         
         <div>BlockNumber: {blockNumber}</div>
         <div>TimeStamp: {timeStamp}</div>
-        <div>BlockReward: {blockReward}</div>
+        <div>BlockReward: {web3.utils.fromWei(blockReward, 'ether')}</div>
         <br/>
     </div>
   );
@@ -40,4 +44,4 @@ export default SingleBlock;
 // }
 // ],
 // uncleInclusionReward: "312500000000000000"
-// }
+// }parseFloat(web3.utils.fromWei(
