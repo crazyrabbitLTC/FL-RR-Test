@@ -1,8 +1,10 @@
 import React from "react";
+import {Link } from "react-router-dom";
 
 function SingleAddressTX({
   blockNumber,
   blockHash,
+  hash,
   from,
   to,
   value,
@@ -10,8 +12,15 @@ function SingleAddressTX({
 }) {
   return (
     <div className="SingleAddressTx">
-        <div>TO: {to}</div>
+    <br/>
+    <div>From: 
+        <Link to={`/address/${from}`}>{from}</Link></div>
+        <div>To: 
+        <Link to={`/address/${to}`}>{to}</Link></div>
         <div>Value: {value}</div>
+        <div>BlockNumber: {blockNumber}</div>
+        <div>Hash: {hash}</div>
+        <br/>
     </div>
   );
 }
