@@ -18,7 +18,8 @@ function SingleAddressTX({
         <div>To: 
         <Link to={`/address/${to}`}>{to}</Link></div>
         <div>Value: {value}</div>
-        <div>BlockNumber: {blockNumber}</div>
+        
+        <div>BlockNumber: <Link to={`/block/${blockNumber}`}>{blockNumber}</Link></div>
         <div>Hash: {hash}</div>
         <br/>
     </div>

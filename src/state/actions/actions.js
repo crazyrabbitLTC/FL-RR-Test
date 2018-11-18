@@ -61,29 +61,6 @@ export const setApiErrorMsg = MSG => {
 }
 //-------- THUNKS
 
-// export const tokenAddMinter_THUNK = minterAddress => {
-//   return async dispatch => {
-//     dispatch(setTokenFetching(true));
-//     try {
-//       const coinbase = await web3.eth.getCoinbase();
-//       const tokenInstance = await token.deployed();
-//       tokenInstance.addMinter(minterAddress).call({ from: coinbase });
-
-//     } catch (error) {
-//       dispatch(setTokenFetching(false));
-//       dispatch(setTxError(true));
-//       console.log(error);
-//     }
-//     dispatch(setTokenFetching(false));
-//   };
-// };
-
-// export const apiRequestObject = {
-//     base: "http://api.etherscan.io/api?",
-//     address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
-    
-// }
-
 export const getTransactions_THUNK = address => {
   return async dispatch => {
     dispatch(isFetching(true));
@@ -109,16 +86,16 @@ export const getTransactions_THUNK = address => {
   };
 };
 
-export const getBlocks_THUNK = address => {
+export const getBlocks_THUNK = block => {
     return async dispatch => {
       dispatch(isFetching(true));
       try {
         const transactions = await axios.get(
-          `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
+          `https://api.etherscan.io/api?module=block&action=getblockreward&blockno=${block}&apikey=YourApiKeyToken${apiKey}`
         );
           console.log("The transactions are: ", transactions.data.result);
         if(transactions.data.message === "OK"){
-            dispatch(setTransactions(transactions.data.result));
+            dispatch(setBlocks(transactions.data.result));
             dispatch(isFetching(false));
         } else {
             console.log("There was API Error");
@@ -143,3 +120,5 @@ export default {
   getTransactions_THUNK,
   getBlocks_THUNK,
 };
+
+

@@ -6,7 +6,7 @@ import types from '../actions/types';
 const defaultState = {
   isFetching: false,
   transactions: [],
-  blocks: [],
+  blocks: {},
   apiError: false,
   apiErrorMSG: "",
 }
