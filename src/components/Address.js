@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 
 import web3 from "web3";
 
 import { getTransactions_THUNK } from "../state/actions/actions";
 import SingleAddressTX from "./SingleAddressTx";
-import { stat } from "fs";
+import SimpleTable from "./SimpleTable";
+
 
 class Address extends Component {
   constructor(props) {
@@ -77,6 +78,7 @@ class Address extends Component {
             <SingleAddressTX key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} />
           ))}
         
+        {/* <SimpleTable key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} /> */}
       </div>
     );
   }
