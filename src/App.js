@@ -3,6 +3,7 @@ import { Router , Route, Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import Address from "./components/Address";
 import Block from "./components/Block";
+import Welcome from "./components/Welcome";
 import history from "./history";
 
 import "./App.css";
@@ -18,7 +19,7 @@ class App extends Component {
        <div className="app-container">
         <Route path="/address/:id" component={Address} />
         <Route path="/block/:id" component={Block} />
-        
+        <Route path="/" component={Welcome} />
         </div>
         <div className="right-bar"></div>
       </div>

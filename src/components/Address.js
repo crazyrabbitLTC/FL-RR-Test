@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import {ClipLoader} from "react-spinners";
-import { css } from 'react-emotion';
+
 
 import web3 from "web3";
 
@@ -27,11 +27,7 @@ const styles = theme => ({
   }
 });
 
-// const override = css`
-//     display: block;
-//     margin: 0 auto;
-//     border-color: red;
-// `;
+
 
 class Address extends Component {
   constructor(props) {
@@ -41,14 +37,14 @@ class Address extends Component {
     this.state = {
       from: 0,
       to: 10,
-      address: "0x0"
+      address: ""
     };
   }
 
   componentDidMount() {
 
     this.props.getTransactions(this.props.match.params.id);
-    this.setState({ address: this.props.match.params.id });
+    console.log("Mounted")
 
 
   }
@@ -57,7 +53,7 @@ class Address extends Component {
     // only update chart if the data has changed
     if (prevProps.match.params.id !== this.props.match.params.id) {
 
-      this.setState({ address: this.props.match.params.id, from: 0, to: 10 });
+      this.setState({ from: 0, to: 10 });
       this.props.getTransactions(this.props.match.params.id);
     }
   }

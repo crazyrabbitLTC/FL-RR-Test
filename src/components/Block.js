@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import web3 from "web3";
+
 
 import { getBlocks_THUNK } from "../state/actions/actions";
-import SingleBlock from "./SingleBlock";
+
 import SimpleBlock from "./SimpleBlock";
+import {ClipLoader} from "react-spinners";
 
 class Block extends Component {
   constructor(props) {
@@ -43,12 +44,21 @@ class Block extends Component {
       <div className="table-container">
       
       <h3>BlockNumber: {blockNumber || "0x0..."}</h3>
+
+      {this.props.isFetching ? 
+              <React.Fragment><ClipLoader
+                className="BarLoader"
+                sizeUnit={"px"}
+                size={50}
+                color={'#123abc'}
+                loading={this.props.isFetching}
+              /></React.Fragment> :
         <SimpleBlock
           timeStamp={timeStamp}
           blockMiner={blockMiner}
           blockReward={blockReward}
           blockNumber={blockNumber}
-        />
+        />}
 <div className="footer">Made by dennison@dennisonbertram.com</div>
       </div>
     );
