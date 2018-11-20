@@ -32,6 +32,11 @@ code {
   margin-bottom: 15px;
 }
 
+.address-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .address-list {
   margin-bottom: 10px;
 }

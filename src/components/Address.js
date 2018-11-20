@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
+import {ClipLoader} from "react-spinners";
+import { css } from 'react-emotion';
 
 import web3 from "web3";
 
@@ -24,6 +26,12 @@ const styles = theme => ({
     width: "90%",
   }
 });
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
 
 class Address extends Component {
   constructor(props) {
@@ -77,8 +85,8 @@ class Address extends Component {
     );
 
     return (
-      <div>
-        {this.props.isFetching ? <div>loading..</div> : <span></span>}
+      <div className="address-container">
+
         <h3>Address: {this.props.match.params.id || "0x0..."}</h3>
         <h4>Total Transactions: {this.props.transactions.length || 0}</h4>
         <div className="address-bar">
@@ -86,7 +94,7 @@ class Address extends Component {
             Search
           </Button>
           <Input
-            placeholder={this.props.match.params.id || "0x0..."}
+            placeholder={"0x0..."}
             className={this.classes.input}
             onChange={this.handleInputChange}
             value={this.state.address}
@@ -97,40 +105,55 @@ class Address extends Component {
           />
         </div>
 
-        <form className="addressForm">
-          <label>
-            From:
-            <input
-              name="from"
-              type="number"
-              value={this.state.from}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            To:
-            <input
-              name="to"
-              type="number"
-              value={this.state.to}
-              onChange={this.handleInputChange}
-            />
-          </label>
-        </form>
-
-        {this.props.transactions
-          .slice(this.state.from, this.state.to)
-          .map(tx => (
-            // <SingleAddressTX key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} />
-            <SimpleTable
-              key={tx.hash}
-              from={tx.from}
-              to={tx.to}
-              hash={tx.hash}
-              value={parseFloat(web3.utils.fromWei(tx.value))}
-              blockNumber={tx.blockNumber}
-            />
-          ))}
+        
+      
+              <div className='BarLoader'>
+              {this.props.isFetching ? 
+              <React.Fragment><ClipLoader
+                className={override}
+                sizeUnit={"px"}
+                size={150}
+                color={'#123abc'}
+                loading={this.props.isFetching}
+              /></React.Fragment> : 
+              <div>
+              <form className="addressForm">
+              <label>
+                From:
+                <input
+                  name="from"
+                  type="number"
+                  value={this.state.from}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+              <label>
+                To:
+                <input
+                  name="to"
+                  type="number"
+                  value={this.state.to < this.props.transactions.length ? this.state.to : this.props.transactions.length}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+            </form>
+    
+            {this.props.transactions
+              .slice(this.state.from, this.state.to)
+              .map(tx => (
+                // <SingleAddressTX key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} />
+                <SimpleTable
+                  key={tx.hash}
+                  from={tx.from}
+                  to={tx.to}
+                  hash={tx.hash}
+                  value={parseFloat(web3.utils.fromWei(tx.value))}
+                  blockNumber={tx.blockNumber}
+                />
+              ))}
+              </div>
+              }
+        </div> 
       </div>
     );
   }
