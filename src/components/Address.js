@@ -101,7 +101,7 @@ class Address extends Component {
             </React.Fragment>
           ) : (
             <div>
-              this.renderPagination()
+              {this.renderPagination()}
               {this.props.transactions
                 .slice(this.state.from, this.state.to)
                 .map(tx => (
