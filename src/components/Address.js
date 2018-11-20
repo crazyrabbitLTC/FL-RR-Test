@@ -27,11 +27,11 @@ const styles = theme => ({
   }
 });
 
-const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-`;
+// const override = css`
+//     display: block;
+//     margin: 0 auto;
+//     border-color: red;
+// `;
 
 class Address extends Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class Address extends Component {
     // only update chart if the data has changed
     if (prevProps.match.params.id !== this.props.match.params.id) {
 
-      this.setState({ address: this.props.match.params.id });
+      this.setState({ address: this.props.match.params.id, from: 0, to: 10 });
       this.props.getTransactions(this.props.match.params.id);
     }
   }
@@ -85,7 +85,7 @@ class Address extends Component {
     );
 
     return (
-      <div className="address-container">
+      <div className="table-container">
 
         <h3>Address: {this.props.match.params.id || "0x0..."}</h3>
         <h4>Total Transactions: {this.props.transactions.length || 0}</h4>
@@ -107,17 +107,17 @@ class Address extends Component {
 
         
       
-              <div className='BarLoader'>
+              <div className='bar-loader'>
               {this.props.isFetching ? 
               <React.Fragment><ClipLoader
-                className={override}
+                className="BarLoader"
                 sizeUnit={"px"}
-                size={150}
+                size={50}
                 color={'#123abc'}
                 loading={this.props.isFetching}
               /></React.Fragment> : 
               <div>
-              <form className="addressForm">
+              <form className="address-form">
               <label>
                 From:
                 <input

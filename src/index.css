@@ -1,12 +1,29 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #fafafa;
+
+}
+
+h3 {
+  display: block;
+  font-size: 1.4em;
+  -webkit-margin-before: 1em;
+  margin-block-start: 1em;
+  -webkit-margin-after: 1em;
+  margin-block-end: 1em;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  color: #627171;
+  text-decoration: underline;
 }
 
 code {
@@ -18,20 +35,28 @@ code {
   background: white;
   max-width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 
 }
 
-.block {
-  margin: 10px;
-  margin-bottom: 15px;
+.left-bar {
+flex: 1
 }
 
-.address-container {
+.right-bar {
+flex: 1
+}
+
+.block {
+
+}
+
+.table-container {
   display: flex;
   flex-direction: column;
   margin: 30px;
+  min-width: 600px;
   -webkit-box-shadow: 4px 17px 129px -50px rgba(0,0,0,0.75);
   -moz-box-shadow: 4px 17px 129px -50px rgba(0,0,0,0.75);
   box-shadow: 4px 17px 129px -50px rgba(0,0,0,0.75);
@@ -52,4 +77,8 @@ code {
 .address-bar {
   display: flex;
   flex-direction: row;
+}
+
+input[type="number"] {
+  margin-right: 10px;
 }

@@ -40,9 +40,9 @@ class Block extends Component {
     console.log("This.props.blocks", this.props.blocks);
     
     return (
-      <div>
-        <h3>blockNumber: {this.props.match.params.id}</h3>
-
+      <div className="table-container">
+      
+      <h3>BlockNumber: {blockNumber || "0x0..."}</h3>
         <SimpleBlock
           timeStamp={timeStamp}
           blockMiner={blockMiner}

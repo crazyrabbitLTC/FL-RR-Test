@@ -8,8 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
-import Tooltip from "@material-ui/core/Tooltip";
-import Fade from "@material-ui/core/Fade";
+import {ClipLoader} from "react-spinners";
+import { css } from 'react-emotion';
 import web3 from "web3";
 
 const styles = theme => ({
@@ -22,6 +22,12 @@ const styles = theme => ({
     minWidth: 700
   }
 });
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
 
 function SimpleTableBlock(props) {
   const {

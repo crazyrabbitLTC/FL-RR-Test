@@ -14,11 +14,10 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="app">
-       
+       <div className="left-bar"></div>
         <Route path="/address/:id" component={Address} />
-        <Route exact path="/address/" component={Address} />
         <Route path="/block/:id" component={Block} />
-        
+        <div className="right-bar"></div>
       </div>
       </Router>
     );
