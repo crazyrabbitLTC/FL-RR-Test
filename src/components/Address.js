@@ -58,7 +58,7 @@ class Address extends Component {
 
   handleLoadNewAddress = () => {
     const address = this.state.address;
-    this.setState({...this.state, address: ""})
+    this.setState({ ...this.state, address: "" });
     this.props.getTransactions(address);
     nav(address);
   };
@@ -101,31 +101,7 @@ class Address extends Component {
             </React.Fragment>
           ) : (
             <div>
-              <form className="address-form">
-                <label>
-                  From:{" "}
-                  <input
-                    name="from"
-                    type="number"
-                    value={this.state.from}
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-                <label>
-                  To:{" "}
-                  <input
-                    name="to"
-                    type="number"
-                    value={
-                      this.state.to < this.props.transactions.length
-                        ? this.state.to
-                        : this.props.transactions.length
-                    }
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-              </form>
-
+              this.renderPagination()
               {this.props.transactions
                 .slice(this.state.from, this.state.to)
                 .map(tx => (
@@ -143,6 +119,35 @@ class Address extends Component {
         </div>
         <div className="footer">Made by dennison@dennisonbertram.com</div>
       </div>
+    );
+  }
+
+  renderPagination() {
+    return (
+      <form className="address-form">
+        <label>
+          From:{" "}
+          <input
+            name="from"
+            type="number"
+            value={this.state.from}
+            onChange={this.handleInputChange}
+          />
+        </label>
+        <label>
+          To:{" "}
+          <input
+            name="to"
+            type="number"
+            value={
+              this.state.to < this.props.transactions.length
+                ? this.state.to
+                : this.props.transactions.length
+            }
+            onChange={this.handleInputChange}
+          />
+        </label>
+      </form>
     );
   }
 }

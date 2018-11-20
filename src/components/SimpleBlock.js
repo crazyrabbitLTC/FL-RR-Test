@@ -1,5 +1,4 @@
 import React from "react";
-
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -38,7 +37,6 @@ function SimpleTableBlock(props) {
           <TableHead>
             <TableRow>
               <TableCell>BlockMiner: </TableCell>
-
               <TableCell numeric>BlockNumber</TableCell>
               <TableCell numeric>TimeStamp</TableCell>
               <TableCell numeric>BlockReward</TableCell>
