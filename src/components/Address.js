@@ -8,6 +8,8 @@ import SimpleTable from "./SimpleTable";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import nav from "../nav";
+import { withWeb3 } from "react-web3-provider";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   button: {
@@ -31,12 +33,14 @@ class Address extends Component {
     this.state = {
       from: 0,
       to: 10,
-      address: ""
+      address: "",
+      web3Account: ""
     };
   }
 
   componentDidMount() {
     this.props.getTransactions(this.props.match.params.id);
+    this.getWeb3Account();
   }
 
   componentDidUpdate(prevProps) {
@@ -45,6 +49,15 @@ class Address extends Component {
       this.props.getTransactions(this.props.match.params.id);
     }
   }
+
+  getWeb3Account = async () => {
+    const { web3 } = this.props;
+    const account = await web3.eth.getAccounts();
+
+    // Version 1.0.0-beta.35
+    console.log("Web3 version:", web3.version, " Account: ", account);
+    this.setState({ ...this.state, web3Account: account[0] });
+  };
 
   handleInputChange = event => {
     const target = event.target;
@@ -67,6 +80,16 @@ class Address extends Component {
     return (
       <div className="table-container">
         <h3>Address: {this.props.match.params.id || "0x0..."}</h3>
+        {this.state.web3Account ? (
+          <div className="user-web3">
+            Your Account:{" "}
+            <Link to={`/address/${this.state.web3Account}`}>
+              {this.state.web3Account}
+            </Link>
+          </div>
+        ) : (
+          <div>No web3 found.</div>
+        )}
         <h4>Total Transactions: {this.props.transactions.length || 0}</h4>
         <div className="address-bar">
           <Button
@@ -173,4 +196,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(Address));
+)(withWeb3(withStyles(styles)(Address)));

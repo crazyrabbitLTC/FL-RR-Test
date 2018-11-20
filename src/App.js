@@ -5,12 +5,22 @@ import Address from "./components/Address";
 import Block from "./components/Block";
 import history from "./history";
 
+
 import "./App.css";
 
 import simpleAction from "./state/actions/actions";
 
 class App extends Component {
+  super(props){
+    this.web3 = null;
+  }
+
+  componentDidMount(){
+
+  }
   render() {
+
+    
     return (
       <Router history={history}>
         <div className="app">

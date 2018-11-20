@@ -93,3 +93,10 @@ input[type="number"] {
   margin: auto;
   margin-top: 10px;
 }
+
+.user-web3{
+  text-align: center;
+  color: chocolate;
+  background: antiquewhite;
+  border-radius: 5px;
+}
