@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { ClipLoader } from "react-spinners";
@@ -29,19 +29,15 @@ class Block extends Component {
 
     this.classes = this.props.classes;
     this.state = {
-      from: 0,
-      to: 10,
       blockNum: ""
     };
   }
 
   componentDidMount() {
     this.props.getBlocks(this.props.match.params.id);
-
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // only update chart if the data has changed
+  componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.props.getBlocks(this.props.match.params.id);
     }
@@ -49,7 +45,7 @@ class Block extends Component {
 
   handleInputChange = event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.value;
     const name = target.name;
 
     this.setState({
@@ -58,13 +54,13 @@ class Block extends Component {
   };
 
   handleLoadNewblockNum = () => {
-    this.props.getBlocks(this.state.blockNum);
+    const block = this.state.blockNum;
+    this.props.getBlocks(block);
     nav(this.state.blockNum);
+    this.setState({blockNum: ""});
   };
 
-
   render() {
-
     const {
       timeStamp,
       blockMiner,
@@ -72,13 +68,10 @@ class Block extends Component {
       blockNumber
     } = this.props.blocks;
 
-
-    
     return (
       <div className="table-container">
-      
-      <h3>BlockNumber: {blockNumber || "0x0..."}</h3>
-      <div className="address-bar">
+        <h3>BlockNumber: {blockNumber || 1}</h3>
+        <div className="address-bar">
           <Button
             variant="outlined"
             className={this.classes.button}
@@ -98,21 +91,27 @@ class Block extends Component {
           />
         </div>
 
-      {this.props.isFetching ? 
-              <React.Fragment><ClipLoader
-                className="BarLoader"
-                sizeUnit={"px"}
-                size={50}
-                color={'#123abc'}
-                loading={this.props.isFetching}
-              /></React.Fragment> :
-        <SimpleBlock
-          timeStamp={timeStamp}
-          blockMiner={blockMiner}
-          blockReward={blockReward}
-          blockNumber={blockNumber}
-        />}
-<div className="footer">Made by dennison@dennisonbertram.com</div>
+        {this.props.isFetching ? (
+          <React.Fragment>
+            <ClipLoader
+              className="BarLoader"
+              sizeUnit={"px"}
+              size={50}
+              color={"#123abc"}
+              loading={this.props.isFetching}
+            />
+          </React.Fragment>
+        ) : (
+          <div>
+            <SimpleBlock
+              timeStamp={timeStamp}
+              blockMiner={blockMiner}
+              blockReward={blockReward}
+              blockNumber={blockNumber}
+            />
+          </div>
+        )}
+        <div className="footer">Made by dennison@dennisonbertram.com</div>
       </div>
     );
   }
@@ -133,9 +132,9 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-Block.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+// Block.propTypes = {
+//   classes: PropTypes.object.isRequired
+// };
 
 export default connect(
   mapStateToProps,

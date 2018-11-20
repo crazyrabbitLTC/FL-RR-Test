@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { ClipLoader } from "react-spinners";
@@ -38,11 +37,9 @@ class Address extends Component {
 
   componentDidMount() {
     this.props.getTransactions(this.props.match.params.id);
-    console.log("Mounted");
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // only update chart if the data has changed
+  componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.setState({ from: 0, to: 10 });
       this.props.getTransactions(this.props.match.params.id);
@@ -51,7 +48,7 @@ class Address extends Component {
 
   handleInputChange = event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.value;
     const name = target.name;
 
     this.setState({
@@ -60,8 +57,10 @@ class Address extends Component {
   };
 
   handleLoadNewAddress = () => {
-    this.props.getTransactions(this.state.address);
-    nav(this.state.address);
+    const address = this.state.address;
+    this.setState({...this.state, address: ""})
+    this.props.getTransactions(address);
+    nav(address);
   };
 
   render() {
@@ -165,10 +164,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(isFetching(status));
   }
 });
-
-Address.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default connect(
   mapStateToProps,

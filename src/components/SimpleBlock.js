@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -49,9 +49,9 @@ function SimpleTableBlock(props) {
               <TableCell>
                 <Link to={`/address/${blockMiner}`}>{blockMiner}</Link>
               </TableCell>
-              <TableCell numeric>{blockNumber}</TableCell>
-              <TableCell numeric>{Number(timeStamp)}</TableCell>
-              <TableCell numeric>
+              <TableCell >{blockNumber}</TableCell>
+              <TableCell numeric>{timeStamp}</TableCell>
+              <TableCell >
                 {web3.utils.fromWei(blockReward, "ether")}
               </TableCell>
             </TableRow>
@@ -62,8 +62,6 @@ function SimpleTableBlock(props) {
   );
 }
 
-SimpleTableBlock.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+
 
 export default withStyles(styles)(SimpleTableBlock);
