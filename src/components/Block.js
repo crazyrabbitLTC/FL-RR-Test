@@ -16,7 +16,7 @@ class Block extends Component {
 
   componentDidMount() {
     this.props.getBlocks(this.props.match.params.id);
-    console.log("STate", this.props.transactions);
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -29,7 +29,7 @@ class Block extends Component {
 
 
   render() {
-    console.log("In render blocks:", this.props.blocks);
+
     const {
       timeStamp,
       blockMiner,
@@ -37,7 +37,7 @@ class Block extends Component {
       blockNumber
     } = this.props.blocks;
 
-    console.log("This.props.blocks", this.props.blocks);
+
     
     return (
       <div className="table-container">

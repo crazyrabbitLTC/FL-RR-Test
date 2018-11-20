@@ -68,12 +68,12 @@ export const getTransactions_THUNK = address => {
       const transactions = await axios.get(
         `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`
       );
-        console.log("The transactions are: ", transactions.data.result);
+
         if(transactions.data.message === "OK"){
             dispatch(setTransactions(transactions.data.result));
             dispatch(isFetching(false));
         } else {
-            console.log("There was API Error", transactions.data.message);
+
             dispatch(setApiError(true));
             dispatch(setApiErrorMsg(transactions.data.message));
             dispatch(isFetching(false));
@@ -93,12 +93,12 @@ export const getBlocks_THUNK = block => {
         const transactions = await axios.get(
           `https://api.etherscan.io/api?module=block&action=getblockreward&blockno=${block}&apikey=YourApiKeyToken${apiKey}`
         );
-          console.log("The transactions are: ", transactions.data.result);
+
         if(transactions.data.message === "OK"){
             dispatch(setBlocks(transactions.data.result));
             dispatch(isFetching(false));
         } else {
-            console.log("There was API Error");
+
             dispatch(setApiError(true));
             dispatch(isFetching(false));
         }

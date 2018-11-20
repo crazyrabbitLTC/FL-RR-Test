@@ -49,7 +49,7 @@ class Address extends Component {
 
     this.props.getTransactions(this.props.match.params.id);
     this.setState({ address: this.props.match.params.id });
-    console.log("STate", this.props.transactions);
+
 
   }
 
@@ -73,16 +73,13 @@ class Address extends Component {
   };
 
   handleLoadNewAddress = () => {
-    console.log("Search Clicked")
+
     this.props.getTransactions(this.state.address);
     nav(this.state.address);
   };
 
   render() {
-    console.log(
-      "In render:",
-      this.props.transactions.slice(this.state.from, this.state.to)
-    );
+
 
     return (
       <div className="table-container">

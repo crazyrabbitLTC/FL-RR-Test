@@ -10,7 +10,7 @@ function SingleBlock({
   blockReward = "0",
 }) {
 
-  console.log("blockreaward: ", typeof(blockReward))
+
   return (
     <div className="SingleBlock">
     <br/>
