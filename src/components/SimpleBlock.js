@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
 import Fade from "@material-ui/core/Fade";
+import web3 from "web3";
 
 const styles = theme => ({
   root: {
@@ -22,47 +23,38 @@ const styles = theme => ({
   }
 });
 
-function SimpleTable(props) {
+function SimpleTableBlock(props) {
   const {
     classes,
     blockNumber,
-    blockHash,
+    blockMiner,
     hash,
-    from,
-    to,
-    value,
-    confirmations
+    blockReward = "0",
+    timeStamp
   } = props;
 
   return (
-    <div className="address-list">
+    <div className="block">
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>From: <Link to={`/address/${from}`}>{from}</Link></TableCell>
-              
-              <TableCell numeric>Value</TableCell>
+              <TableCell>BlockMiner: </TableCell>
+
               <TableCell numeric>BlockNumber</TableCell>
+              <TableCell numeric>TimeStamp</TableCell>
+              <TableCell numeric>BlockReward</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow key={hash}>
-              <TableCell component="th" scope="row">
-                To: <Link to={`/address/${to}`}>{to}</Link>
+              <TableCell>
+                <Link to={`/address/${blockMiner}`}>{blockMiner}</Link>
               </TableCell>
-              
-
-              <Tooltip
-                TransitionComponent={Fade}
-                TransitionProps={{ timeout: 600 }}
-                title={value}
-                placement="bottom"
-              >
-                <TableCell numeric>{value.toFixed(2)}</TableCell>
-              </Tooltip>
+              <TableCell numeric>{blockNumber}</TableCell>
+              <TableCell numeric>{Number(timeStamp)}</TableCell>
               <TableCell numeric>
-                <Link to={`/block/${blockNumber}`}>{blockNumber}</Link>
+                {web3.utils.fromWei(blockReward, "ether")}
               </TableCell>
             </TableRow>
           </TableBody>
@@ -72,8 +64,8 @@ function SimpleTable(props) {
   );
 }
 
-SimpleTable.propTypes = {
+SimpleTableBlock.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(SimpleTableBlock);

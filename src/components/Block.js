@@ -5,6 +5,7 @@ import web3 from "web3";
 
 import { getBlocks_THUNK } from "../state/actions/actions";
 import SingleBlock from "./SingleBlock";
+import SimpleBlock from "./SimpleBlock";
 
 class Block extends Component {
   constructor(props) {
@@ -36,11 +37,13 @@ class Block extends Component {
       blockNumber
     } = this.props.blocks;
 
+    console.log("This.props.blocks", this.props.blocks);
+    
     return (
       <div>
         <h3>blockNumber: {this.props.match.params.id}</h3>
 
-        <SingleBlock
+        <SimpleBlock
           timeStamp={timeStamp}
           blockMiner={blockMiner}
           blockReward={blockReward}

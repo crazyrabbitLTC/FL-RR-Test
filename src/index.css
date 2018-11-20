@@ -27,3 +27,22 @@ code {
   border-radius: 20px;
 }
 
+.block {
+  margin: 10px;
+  margin-bottom: 15px;
+}
+
+.address-list {
+  margin-bottom: 10px;
+}
+
+.address-form {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.address-bar {
+  display: flex;
+  flex-direction: row;
+}
