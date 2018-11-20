@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Router , Route, Link} from "react-router-dom";
+import { Router , Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import Address from "./components/Address";
 import Block from "./components/Block";
-import Welcome from "./components/Welcome";
 import history from "./history";
 
 import "./App.css";
@@ -17,9 +16,11 @@ class App extends Component {
         <div className="app">
        <div className="left-bar"></div>
        <div className="app-container">
-        <Route path="/address/:id" component={Address} />
-        <Route path="/block/:id" component={Block} />
-        <Route path="/" component={Welcome} />
+        <Route exact path="/address/:id" component={Address} />
+        <Route exact path="/address/" component={Address} />
+        <Route exact path="/block/:id" component={Block} />
+        <Route exact path="/block/" component={Block} />
+        <Route exact path="/" component={Address} />
         </div>
         <div className="right-bar"></div>
       </div>

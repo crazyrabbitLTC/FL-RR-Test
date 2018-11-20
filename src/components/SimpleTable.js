@@ -23,16 +23,7 @@ const styles = theme => ({
 });
 
 function SimpleTable(props) {
-  const {
-    classes,
-    blockNumber,
-    blockHash,
-    hash,
-    from,
-    to,
-    value,
-    confirmations
-  } = props;
+  const { classes, blockNumber, hash, from, to, value } = props;
 
   return (
     <div className="address-list">
@@ -40,8 +31,10 @@ function SimpleTable(props) {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>From: <Link to={`/address/${from}`}>{from}</Link></TableCell>
-              
+              <TableCell>
+                From: <Link to={`/address/${from}`}>{from}</Link>
+              </TableCell>
+
               <TableCell numeric>Value</TableCell>
               <TableCell numeric>BlockNumber</TableCell>
             </TableRow>
@@ -51,8 +44,6 @@ function SimpleTable(props) {
               <TableCell component="th" scope="row">
                 To: <Link to={`/address/${to}`}>{to}</Link>
               </TableCell>
-              
-
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}

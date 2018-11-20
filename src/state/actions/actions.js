@@ -9,7 +9,6 @@ import {
   API_ERROR,
   SET_API_ERROR_MSG
 } from "./types";
-import { truncateSync } from "fs";
 
 export const isFetching = bool => {
   return {

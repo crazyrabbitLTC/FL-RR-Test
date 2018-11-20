@@ -1,18 +1,38 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-
-
-
+import { ClipLoader } from "react-spinners";
 import { getBlocks_THUNK } from "../state/actions/actions";
-
 import SimpleBlock from "./SimpleBlock";
-import {ClipLoader} from "react-spinners";
+import Input from "@material-ui/core/Input";
+import Button from "@material-ui/core/Button";
+import nav from "../nav";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  input: {
+    margin: theme.spacing.unit,
+    width: "90%"
+  }
+});
 
 class Block extends Component {
   constructor(props) {
     super(props);
 
-
+    this.classes = this.props.classes;
+    this.state = {
+      from: 0,
+      to: 10,
+      blockNum: ""
+    };
   }
 
   componentDidMount() {
@@ -27,6 +47,20 @@ class Block extends Component {
     }
   }
 
+  handleInputChange = event => {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleLoadNewblockNum = () => {
+    this.props.getBlocks(this.state.blockNum);
+    nav(this.state.blockNum);
+  };
 
 
   render() {
@@ -44,6 +78,25 @@ class Block extends Component {
       <div className="table-container">
       
       <h3>BlockNumber: {blockNumber || "0x0..."}</h3>
+      <div className="address-bar">
+          <Button
+            variant="outlined"
+            className={this.classes.button}
+            onClick={this.handleLoadNewblockNum}
+          >
+            Search
+          </Button>
+          <Input
+            placeholder={"blocknumber..."}
+            className={this.classes.input}
+            onChange={this.handleInputChange}
+            value={this.state.blockNum}
+            name="blockNum"
+            inputProps={{
+              "aria-label": "Description"
+            }}
+          />
+        </div>
 
       {this.props.isFetching ? 
               <React.Fragment><ClipLoader
@@ -80,7 +133,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
+Block.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Block);
+)(withStyles(styles)(Block));

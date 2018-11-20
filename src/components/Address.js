@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import {ClipLoader} from "react-spinners";
-
-
+import { ClipLoader } from "react-spinners";
 import web3 from "web3";
-
 import { getTransactions_THUNK, isFetching } from "../state/actions/actions";
 import SimpleTable from "./SimpleTable";
 import Input from "@material-ui/core/Input";
@@ -23,11 +20,9 @@ const styles = theme => ({
   },
   input: {
     margin: theme.spacing.unit,
-    width: "90%",
+    width: "90%"
   }
 });
-
-
 
 class Address extends Component {
   constructor(props) {
@@ -42,17 +37,13 @@ class Address extends Component {
   }
 
   componentDidMount() {
-
     this.props.getTransactions(this.props.match.params.id);
-    console.log("Mounted")
-
-
+    console.log("Mounted");
   }
 
   componentDidUpdate(prevProps, prevState) {
     // only update chart if the data has changed
     if (prevProps.match.params.id !== this.props.match.params.id) {
-
       this.setState({ from: 0, to: 10 });
       this.props.getTransactions(this.props.match.params.id);
     }
@@ -69,21 +60,21 @@ class Address extends Component {
   };
 
   handleLoadNewAddress = () => {
-
     this.props.getTransactions(this.state.address);
     nav(this.state.address);
   };
 
   render() {
-
-
     return (
       <div className="table-container">
-
         <h3>Address: {this.props.match.params.id || "0x0..."}</h3>
         <h4>Total Transactions: {this.props.transactions.length || 0}</h4>
         <div className="address-bar">
-          <Button variant="outlined" className={this.classes.button} onClick={this.handleLoadNewAddress}>
+          <Button
+            variant="outlined"
+            className={this.classes.button}
+            onClick={this.handleLoadNewAddress}
+          >
             Search
           </Button>
           <Input
@@ -98,55 +89,59 @@ class Address extends Component {
           />
         </div>
 
-        
-      
-              <div className='bar-loader'>
-              {this.props.isFetching ? 
-              <React.Fragment><ClipLoader
+        <div className="bar-loader">
+          {this.props.isFetching ? (
+            <React.Fragment>
+              <ClipLoader
                 className="BarLoader"
                 sizeUnit={"px"}
                 size={50}
-                color={'#123abc'}
+                color={"#123abc"}
                 loading={this.props.isFetching}
-              /></React.Fragment> : 
-              <div>
+              />
+            </React.Fragment>
+          ) : (
+            <div>
               <form className="address-form">
-              <label>
-                From:
-                <input
-                  name="from"
-                  type="number"
-                  value={this.state.from}
-                  onChange={this.handleInputChange}
-                />
-              </label>
-              <label>
-                To:
-                <input
-                  name="to"
-                  type="number"
-                  value={this.state.to < this.props.transactions.length ? this.state.to : this.props.transactions.length}
-                  onChange={this.handleInputChange}
-                />
-              </label>
-            </form>
-    
-            {this.props.transactions
-              .slice(this.state.from, this.state.to)
-              .map(tx => (
-                // <SingleAddressTX key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} />
-                <SimpleTable
-                  key={tx.hash}
-                  from={tx.from}
-                  to={tx.to}
-                  hash={tx.hash}
-                  value={parseFloat(web3.utils.fromWei(tx.value))}
-                  blockNumber={tx.blockNumber}
-                />
-              ))}
-              </div>
-              }
-        </div> 
+                <label>
+                  From:{" "}
+                  <input
+                    name="from"
+                    type="number"
+                    value={this.state.from}
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+                <label>
+                  To:{" "}
+                  <input
+                    name="to"
+                    type="number"
+                    value={
+                      this.state.to < this.props.transactions.length
+                        ? this.state.to
+                        : this.props.transactions.length
+                    }
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+              </form>
+
+              {this.props.transactions
+                .slice(this.state.from, this.state.to)
+                .map(tx => (
+                  <SimpleTable
+                    key={tx.hash}
+                    from={tx.from}
+                    to={tx.to}
+                    hash={tx.hash}
+                    value={parseFloat(web3.utils.fromWei(tx.value))}
+                    blockNumber={tx.blockNumber}
+                  />
+                ))}
+            </div>
+          )}
+        </div>
         <div className="footer">Made by dennison@dennisonbertram.com</div>
       </div>
     );
