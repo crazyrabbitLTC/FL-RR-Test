@@ -75,11 +75,12 @@ class Address extends Component {
         {this.props.transactions
           .slice(this.state.from, this.state.to)
           .map(tx => (
-            <SingleAddressTX key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} />
+            // <SingleAddressTX key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} />
+            <SimpleTable key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} />
+      
           ))}
         
-        {/* <SimpleTable key={tx.hash} from={tx.from} to={tx.to} hash={tx.hash} value={parseFloat(web3.utils.fromWei(tx.value))} blockNumber={tx.blockNumber} /> */}
-      </div>
+        </div>
     );
   }
 }
