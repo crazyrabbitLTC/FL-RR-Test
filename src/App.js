@@ -15,8 +15,11 @@ class App extends Component {
       <Router history={history}>
         <div className="app">
        <div className="left-bar"></div>
+       <div className="app-container">
         <Route path="/address/:id" component={Address} />
         <Route path="/block/:id" component={Block} />
+        
+        </div>
         <div className="right-bar"></div>
       </div>
       </Router>

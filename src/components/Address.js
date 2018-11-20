@@ -154,6 +154,7 @@ class Address extends Component {
               </div>
               }
         </div> 
+        <div className="footer">Made by dennison@dennisonbertram.com</div>
       </div>
     );
   }

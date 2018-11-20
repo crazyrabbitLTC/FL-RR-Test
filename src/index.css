@@ -40,6 +40,11 @@ code {
 
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .left-bar {
 flex: 1
 }
@@ -81,4 +86,10 @@ flex: 1
 
 input[type="number"] {
   margin-right: 10px;
+  width: 40px;
+}
+
+.footer {
+  margin: auto;
+  margin-top: 10px;
 }

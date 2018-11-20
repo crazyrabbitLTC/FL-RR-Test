@@ -49,6 +49,7 @@ class Block extends Component {
           blockReward={blockReward}
           blockNumber={blockNumber}
         />
+<div className="footer">Made by dennison@dennisonbertram.com</div>
       </div>
     );
   }
