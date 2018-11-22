@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import web3 from "web3";
 import { getTransactions_THUNK, isFetching } from "../state/actions/actions";
-import SimpleTable from "./SimpleTable";
+import SingleAddress from "./SingleAddress";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import nav from "../nav";
@@ -128,13 +128,14 @@ class Address extends Component {
               {this.props.transactions
                 .slice(this.state.from, this.state.to)
                 .map(tx => (
-                  <SimpleTable
+                  <SingleAddress
                     key={tx.hash}
                     from={tx.from}
                     to={tx.to}
                     hash={tx.hash}
                     value={parseFloat(web3.utils.fromWei(tx.value))}
                     blockNumber={tx.blockNumber}
+                    confirmations={tx.confirmations}
                   />
                 ))}
             </div>

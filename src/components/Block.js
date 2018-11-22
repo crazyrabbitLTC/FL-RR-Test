@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { getBlocks_THUNK } from "../state/actions/actions";
-import SimpleBlock from "./SimpleBlock";
+import SingleBlock from "./SingleBlock";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import nav from "../nav";
@@ -102,7 +102,7 @@ class Block extends Component {
           </React.Fragment>
         ) : (
           <div>
-            <SimpleBlock
+            <SingleBlock
               timeStamp={timeStamp}
               blockMiner={blockMiner}
               blockReward={blockReward}

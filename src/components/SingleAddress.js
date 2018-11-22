@@ -22,8 +22,8 @@ const styles = theme => ({
   }
 });
 
-function SimpleTable(props) {
-  const { classes, blockNumber, hash, from, to, value } = props;
+function SingleAddress(props) {
+  const { classes, blockNumber, hash, from, to, value, confirmations } = props;
 
   return (
     <div className="address-list">
@@ -37,6 +37,7 @@ function SimpleTable(props) {
 
               <TableCell numeric>Value</TableCell>
               <TableCell numeric>BlockNumber</TableCell>
+              <TableCell numeric>Confirmations</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -50,11 +51,12 @@ function SimpleTable(props) {
                 title={value}
                 placement="bottom"
               >
-                <TableCell numeric>{value.toFixed(2)}</TableCell>
+                <TableCell numeric>{value.toFixed(2)} ETH</TableCell>
               </Tooltip>
               <TableCell numeric>
                 <Link to={`/block/${blockNumber}`}>{blockNumber}</Link>
               </TableCell>
+              <TableCell numeric>{confirmations}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -63,8 +65,8 @@ function SimpleTable(props) {
   );
 }
 
-SimpleTable.propTypes = {
+SingleAddress.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(SingleAddress);

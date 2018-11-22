@@ -1,4 +1,5 @@
 import axios from "axios";
+//This should be a simple secrets.js file that exports an etherscan apiKey
 import apiKey from "../../secrets";
 import {
   FETCH_ACTION,

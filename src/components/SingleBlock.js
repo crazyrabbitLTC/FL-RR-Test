@@ -7,6 +7,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
+import Tooltip from "@material-ui/core/Tooltip";
+import Fade from "@material-ui/core/Fade";
 import web3 from "web3";
 
 const styles = theme => ({
@@ -20,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-function SimpleTableBlock(props) {
+function SingleBlock(props) {
   const {
     classes,
     blockNumber,
@@ -30,6 +32,7 @@ function SimpleTableBlock(props) {
     timeStamp
   } = props;
 
+  console.log("Blockreward type: ", typeof(blockReward), " Blockreward: ", blockReward)
   return (
     <div className="block">
       <Paper className={classes.root}>
@@ -49,9 +52,16 @@ function SimpleTableBlock(props) {
               </TableCell>
               <TableCell >{blockNumber}</TableCell>
               <TableCell numeric>{timeStamp}</TableCell>
+              <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title={parseFloat(web3.utils.fromWei(blockReward, "ether"))}
+                placement="bottom"
+              >
               <TableCell >
-                {web3.utils.fromWei(blockReward, "ether")}
+                {parseFloat(web3.utils.fromWei(blockReward, "ether")).toFixed(2)} ETH
               </TableCell>
+              </Tooltip>
             </TableRow>
           </TableBody>
         </Table>
@@ -62,4 +72,4 @@ function SimpleTableBlock(props) {
 
 
 
-export default withStyles(styles)(SimpleTableBlock);
+export default withStyles(styles)(SingleBlock);
