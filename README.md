@@ -16,3 +16,6 @@ You will also see any lint errors in the console.
 
 I did not build a "landing page" for the app. To load simply navigate to localhost:3000/address/ or localhost:3000/block/
 From that point it should be simple and self-explanatory. 
+
+
+You need to create a "secrets.js" file in your src director that exports your Etherscan API key. 
