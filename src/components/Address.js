@@ -77,9 +77,12 @@ class Address extends Component {
   };
 
   render() {
+
+    const {isFetching, transactions, match} = this.props;
+
     return (
       <div className="table-container">
-        <h3>Address: {this.props.match.params.id || "0x0..."}</h3>
+        <h3>Address: {match.params.id || "0x0..."}</h3>
         {this.state.web3Account ? (
           <div className="user-web3">
             Your Account:{" "}
@@ -90,7 +93,7 @@ class Address extends Component {
         ) : (
           <div>No web3 found.</div>
         )}
-        <h4>Total Transactions: {this.props.transactions.length || 0}</h4>
+        <h4>Total Transactions: {transactions.length || 0}</h4>
         <div className="address-bar">
           <Button
             variant="outlined"
@@ -112,20 +115,20 @@ class Address extends Component {
         </div>
 
         <div className="bar-loader">
-          {this.props.isFetching ? (
+          {isFetching ? (
             <React.Fragment>
               <ClipLoader
                 className="BarLoader"
                 sizeUnit={"px"}
                 size={50}
                 color={"#123abc"}
-                loading={this.props.isFetching}
+                loading={isFetching}
               />
             </React.Fragment>
           ) : (
             <div>
-              {this.renderPagination()}
-              {this.props.transactions
+              {this.renderPagination(transactions)}
+              {transactions
                 .slice(this.state.from, this.state.to)
                 .map(tx => (
                   <SingleAddress
@@ -146,7 +149,8 @@ class Address extends Component {
     );
   }
 
-  renderPagination() {
+  //This Creates the "pagination" offered for Accounts with many transactions. 
+  renderPagination(transactions) {
     return (
       <form className="address-form">
         <label>
@@ -164,9 +168,9 @@ class Address extends Component {
             name="to"
             type="number"
             value={
-              this.state.to < this.props.transactions.length
+              this.state.to < transactions.length
                 ? this.state.to
-                : this.props.transactions.length
+                : transactions.length
             }
             onChange={this.handleInputChange}
           />

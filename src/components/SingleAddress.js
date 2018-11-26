@@ -34,7 +34,6 @@ function SingleAddress(props) {
               <TableCell>
                 From: <Link to={`/address/${from}`}>{from}</Link>
               </TableCell>
-
               <TableCell numeric>Value</TableCell>
               <TableCell numeric>BlockNumber</TableCell>
               <TableCell numeric>Confirmations</TableCell>

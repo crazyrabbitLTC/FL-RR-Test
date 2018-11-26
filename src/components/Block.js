@@ -67,6 +67,8 @@ class Block extends Component {
       blockNumber
     } = this.props.blocks;
 
+    const {isFetching} = this.props;
+
     return (
       <div className="table-container">
         <h3>BlockNumber: {blockNumber || 1}</h3>
@@ -90,14 +92,14 @@ class Block extends Component {
           />
         </div>
 
-        {this.props.isFetching ? (
+        {isFetching ? (
           <React.Fragment>
             <ClipLoader
               className="BarLoader"
               sizeUnit={"px"}
               size={50}
               color={"#123abc"}
-              loading={this.props.isFetching}
+              loading={isFetching}
             />
           </React.Fragment>
         ) : (
@@ -130,10 +132,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(getBlocks_THUNK(block));
   }
 });
-
-// Block.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
 
 export default connect(
   mapStateToProps,
