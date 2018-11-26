@@ -53,9 +53,6 @@ class Address extends Component {
   getWeb3Account = async () => {
     const { web3 } = this.props;
     const account = await web3.eth.getAccounts();
-
-    // Version 1.0.0-beta.35
-    console.log("Web3 version:", web3.version, " Account: ", account);
     this.setState({ ...this.state, web3Account: account[0] });
   };
 

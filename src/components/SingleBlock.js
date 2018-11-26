@@ -32,7 +32,6 @@ function SingleBlock(props) {
     timeStamp
   } = props;
 
-  console.log("Blockreward type: ", typeof(blockReward), " Blockreward: ", blockReward)
   return (
     <div className="block">
       <Paper className={classes.root}>
